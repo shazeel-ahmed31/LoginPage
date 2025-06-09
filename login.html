@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BusinessPro - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        .card-blur {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .input-focus:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .btn-primary {
+            background: #3b82f6;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        .error-input {
+            border-color: #ef4444;
+        }
+        .error-input:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .spin {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
+        <!-- Logo/Brand Section -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-xl mb-4 shadow-lg">
+                <i data-lucide="building-2" class="w-8 h-8 text-white"></i>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900">Mr Awesome</h1>
+        </div>
+
+        <!-- Login Card -->
+        <div class="card-blur shadow-xl border-0 rounded-lg overflow-hidden">
+            <!-- Header -->
+            <div class="px-6 pt-6 pb-4">
+                <h2 class="text-2xl font-semibold text-center text-gray-900">Welcome back</h2>
+                <p class="text-center text-gray-600 mt-1">Sign in to your website</p>
+            </div>
+
+            <!-- Form -->
+            <form id="loginForm" class="px-6 pb-6">
+                <div class="space-y-4">
+                    <!-- Success/Error Messages -->
+                    <div id="successAlert" class="hidden fade-in border border-green-200 bg-green-50 rounded-lg p-3">
+                        <div class="flex items-center">
+                            <i data-lucide="check-circle-2" class="h-4 w-4 text-green-600 mr-2"></i>
+                            <span class="text-green-800 text-sm">Login successful! Redirecting to dashboard...</span>
+                        </div>
+                    </div>
+
+                    <div id="errorAlert" class="hidden fade-in border border-red-200 bg-red-50 rounded-lg p-3">
+                        <div class="flex items-center">
+                            <i data-lucide="alert-circle" class="h-4 w-4 text-red-600 mr-2"></i>
+                            <span class="text-red-800 text-sm">Invalid credentials. Please try again.</span>
+                        </div>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your business email"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md input-focus transition-all duration-200"
+                            required
+                        >
+                        <div id="emailError" class="hidden text-sm text-red-600 flex items-center">
+                            <i data-lucide="alert-circle" class="w-3 h-3 mr-1"></i>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="space-y-2">
+                        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                        <div class="relative">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md input-focus transition-all duration-200"
+                                required
+                            >
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                            >
+                                <i data-lucide="eye" class="h-4 w-4"></i>
+                            </button>
+                        </div>
+                        <div id="passwordError" class="hidden text-sm text-red-600 flex items-center">
+                            <i data-lucide="alert-circle" class="w-3 h-3 mr-1"></i>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot Password -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                name="remember"
+                                class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                            >
+                            <label for="remember" class="ml-2 text-sm text-gray-600 cursor-pointer">Remember me</label>
+                        </div>
+                        <a href="#" class="text-sm text-blue-600 hover:text-blue-500 transition-colors">Forgot password?</a>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button
+                        type="submit"
+                        id="submitBtn"
+                        class="w-full h-11 btn-primary text-white font-medium rounded-md transition-all duration-200"
+                    >
+                        <span id="submitText">Sign In</span>
+                        <span id="loadingText" class="hidden flex items-center justify-center">
+                            <i data-lucide="loader-2" class="w-4 h-4 mr-2 spin"></i>
+                            Signing in...
+                        </span>
+                    </button>
+
+                    <!-- Sign Up Link -->
+                    <div class="text-center text-sm text-gray-600">
+                        Don't have an account?
+                        <a href="#" class="text-blue-600 hover:text-blue-500 font-medium transition-colors ml-1">Create account</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-xs text-gray-500">
+            <p>© 2024 BusinessPro. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-2">
+                <a href="#" class="hover:text-gray-700 transition-colors">Privacy Policy</a>
+                <a href="#" class="hover:text-gray-700 transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Form elements
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const loadingText = document.getElementById('loadingText');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+        const emailError = document.getElementById('emailError');
+        const passwordError = document.getElementById('passwordError');
+
+        let isLoading = false;
+
+        // Password visibility toggle
+        togglePasswordBtn.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            const icon = togglePasswordBtn.querySelector('i');
+            icon.setAttribute('data-lucide', type === 'password' ? 'eye' : 'eye-off');
+            lucide.createIcons();
+        });
+
+        // Form validation
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function showError(element, message) {
+            const input = element === emailError ? emailInput : passwordInput;
+            const errorDiv = element;
+            
+            input.classList.add('error-input');
+            errorDiv.querySelector('span').textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function hideError(element) {
+            const input = element === emailError ? emailInput : passwordInput;
+            const errorDiv = element;
+            
+            input.classList.remove('error-input');
+            errorDiv.classList.add('hidden');
+        }
+
+        function hideAllAlerts() {
+            successAlert.classList.add('hidden');
+            errorAlert.classList.add('hidden');
+        }
+
+        // Input event listeners for real-time validation
+        emailInput.addEventListener('input', function() {
+            hideError(emailError);
+            hideAllAlerts();
+        });
+
+        passwordInput.addEventListener('input', function() {
+            hideError(passwordError);
+            hideAllAlerts();
+        });
+
+        // Form submission
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (isLoading) return;
+
+            // Hide previous errors and alerts
+            hideError(emailError);
+            hideError(passwordError);
+            hideAllAlerts();
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            let hasErrors = false;
+
+            // Validate email
+            if (!email) {
+                showError(emailError, 'Email is required');
+                hasErrors = true;
+            } else if (!validateEmail(email)) {
+                showError(emailError, 'Please enter a valid email address');
+                hasErrors = true;
+            }
+
+            // Validate password
+            if (!password) {
+                showError(passwordError, 'Password is required');
+                hasErrors = true;
+            } else if (password.length < 6) {
+                showError(passwordError, 'Password must be at least 6 characters');
+                hasErrors = true;
+            }
+
+            if (hasErrors) return;
+
+            // Show loading state
+            isLoading = true;
+            submitBtn.disabled = true;
+            submitText.classList.add('hidden');
+            loadingText.classList.remove('hidden');
+
+            // Simulate API call
+            try {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Check demo credentials
+                if (email === 'demo@business.com' && password === 'password123') {
+                    successAlert.classList.remove('hidden');
+                    // Simulate redirect after 2 seconds
+                    setTimeout(() => {
+                        alert('Redirecting to dashboard...');
+                    }, 2000);
+                } else {
+                    errorAlert.classList.remove('hidden');
+                }
+            } catch (error) {
+                errorAlert.classList.remove('hidden');
+            } finally {
+                // Reset loading state
+                isLoading = false;
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                loadingText.classList.add('hidden');
+                lucide.createIcons();
+            }
+        });
+
+        // Auto-fill demo credentials when clicking on demo info
+        document.querySelector('.bg-gray-100').addEventListener('click', function() {
+            emailInput.value = 'demo@business.com';
+            passwordInput.value = 'password123';
+        });
+    </script>
+</body>
+</html>
