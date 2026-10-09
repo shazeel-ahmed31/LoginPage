@@ -76,7 +76,7 @@
                     <div id="successAlert" class="hidden fade-in border border-green-200 bg-green-50 rounded-lg p-3">
                         <div class="flex items-center">
                             <i data-lucide="check-circle-2" class="h-4 w-4 text-green-600 mr-2"></i>
-                            <span class="text-green-800 text-sm">Login successful! Redirecting to dashboard...</span>
+                            <span class="text-green-800 text-sm">Demo sign-in succeeded! No session or dashboard is connected.</span>
                         </div>
                     </div>
 
@@ -93,7 +93,6 @@
                         <input
                             type="email"
                             id="email"
-                            name="email"
                             placeholder="Enter your business email"
                             class="w-full px-3 py-2 border border-gray-300 rounded-md input-focus transition-all duration-200"
                             required
@@ -111,14 +110,13 @@
                             <input
                                 type="password"
                                 id="password"
-                                name="password"
                                 placeholder="Enter your password"
                                 class="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md input-focus transition-all duration-200"
                                 required
                             >
                             <button
                                 type="button"
-                                id="togglePassword"
+                                id="togglePassword" aria-label="Toggle password visibility"
                                 class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
                             >
                                 <i data-lucide="eye" class="h-4 w-4"></i>
@@ -168,6 +166,7 @@
 
 
 
+        <p class="text-center text-sm">Frontend demonstration: no real authentication, stored session, or backend. Use only sample credentials.</p>
         <!-- Footer -->
         <div class="text-center mt-8 text-xs text-gray-500">
             <p>© 2024 BusinessPro. All rights reserved.</p>
@@ -202,7 +201,8 @@
             const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
             
-            const icon = togglePasswordBtn.querySelector('i');
+            const icon = document.createElement('i');
+            togglePasswordBtn.replaceChildren(icon);
             icon.setAttribute('data-lucide', type === 'password' ? 'eye' : 'eye-off');
             lucide.createIcons();
         });
@@ -295,10 +295,7 @@
                 // Check demo credentials
                 if (email === 'demo@business.com' && password === 'password123') {
                     successAlert.classList.remove('hidden');
-                    // Simulate redirect after 2 seconds
-                    setTimeout(() => {
-                        alert('Redirecting to dashboard...');
-                    }, 2000);
+
                 } else {
                     errorAlert.classList.remove('hidden');
                 }
